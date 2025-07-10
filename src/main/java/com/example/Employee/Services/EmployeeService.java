@@ -1,7 +1,7 @@
 package com.example.Employee.Services;
 
 import com.example.Employee.Modules.Employee;
-import com.example.Employee.Repository.EmployeeRepository;
+import com.example.Employee.Repository.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import java.util.List;
 public class EmployeeService {
 
     @Autowired
-    EmployeeRepository empRepo;
+    EmployeeRepo empRepo;
 
     public List<Employee> getEmployee(){
         return empRepo.findAll();
