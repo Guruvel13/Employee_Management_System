@@ -3,44 +3,60 @@ package com.example.Employee.Controllers;
 import com.example.Employee.Modules.Employee;
 import com.example.Employee.Services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/employee")
 public class EmployeeController {
 
     @Autowired
-    private EmployeeService ES;
+    private EmployeeService employeeService;
 
-    // Get all employees
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("/")
-    public List<Employee> getEmployee() {
-        return ES.getEmployee();
+    public String route(){
+        return "Welcome to SpringBoot Security";
     }
 
-    // Get employee by ID
-    @GetMapping("/{empID}")
-    public Employee getEmployeeById(@PathVariable int empID) {
-        return ES.getEmployeeById(empID);
+
+    @GetMapping("/employee")
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    public List<RegisterDetails> getMethod(){
+        return employeeService.getMethod();
     }
 
-    // Add a new employee
-    @PostMapping("/add")
-    public String AddingEmployee(@RequestBody Employee employee) {
-        return ES.addEmployee(employee);
+
+    @GetMapping("/employee/{empId}")
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    public RegisterDetails getEmployeeById(@PathVariable int empId){
+        System.out.println();
+        return employeeService.getEmployeeById(empId);
     }
 
-    // Update employee
-    @PostMapping("/update")
-    public String UpdateEmployee(@RequestBody Employee employee) {
-        return ES.updateEmployee(employee);
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @GetMapping("/employee/job/{job}")
+    public List<RegisterDetails> getEmployeeByJob(@PathVariable String job){
+        return employeeService.getEmployeeByJob(job);
     }
 
-    // Delete employee by ID
-    @DeleteMapping("/{empID}")
-    public String DeleteEmployee(@PathVariable int empID) {
-        return ES.deleteEmployeeById(empID);
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/employee")
+    public String postMethod(@RequestBody RegisterDetails employee){
+//        Employee employee = new Employee(5,"Sivagami", "Business");
+        return employeeService.addEmployee(employee);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/employee/{empId}")
+    public String putMethod(@PathVariable int empId){
+        return employeeService.updateEmployee(empId);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/employee/{empID}")
+    public String deleteMethod(@PathVariable int empID){
+        return employeeService.deleteEmployeeById(empID);
     }
 }
