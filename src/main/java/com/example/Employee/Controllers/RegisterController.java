@@ -1,5 +1,6 @@
 package com.example.Employee.Controllers;
 
+import com.example.Employee.Modules.RegisterDetails;
 import com.example.Employee.Services.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.Employee.Modules.UserDetails;
@@ -17,6 +18,6 @@ public class RegisterController {
 
     @PostMapping
     public String createEmployee(@RequestBody UserDetails userDetails){
-        return rs.createEmployee(userDetails);
+        return rs.createEmployee((RegisterDetails) userDetails);
     }
 }

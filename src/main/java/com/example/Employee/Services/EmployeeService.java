@@ -33,6 +33,6 @@ public class EmployeeService {
 
     public String deleteEmployeeById (int empID){
         empRepo.deleteById(empID);
-        return "Employee Deleted Successfully";
+        return "Employee updated Successfully";
     }
 }

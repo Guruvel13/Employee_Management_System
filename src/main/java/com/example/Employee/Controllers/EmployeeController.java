@@ -33,7 +33,7 @@ public class EmployeeController {
     }
 
     // Update employee
-    @PutMapping
+    @PostMapping("/update")
     public String UpdateEmployee(@RequestBody Employee employee) {
         return ES.updateEmployee(employee);
     }
