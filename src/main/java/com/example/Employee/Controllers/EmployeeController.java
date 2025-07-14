@@ -1,6 +1,6 @@
 package com.example.Employee.Controllers;
 
-import com.example.Employee.Modules.Employee;
+import com.example.Employee.Modules.RegisterDetails;
 import com.example.Employee.Services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

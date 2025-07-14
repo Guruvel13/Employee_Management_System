@@ -1,7 +1,7 @@
 package com.example.Employee.Services;
 
 import com.example.Employee.Modules.RegisterDetails;
-import com.example.Employee.Repository.RegisterRepo;
+import com.example.Employee.Repository.RegisterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class RegisterService {
 
     @Autowired
-    RegisterRepo registerRepo;
+    RegisterRepository registerRepo;
 
     public String createEmployee(RegisterDetails registerDetails) {
         registerRepo.save(registerDetails);

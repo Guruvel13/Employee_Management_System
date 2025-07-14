@@ -1,7 +1,7 @@
 package com.example.Employee.Services;
 
-import com.example.Employee.Modules.Employee;
-import com.example.Employee.Repository.EmployeeRepo;
+import com.example.Employee.Modules.RegisterDetails;
+import com.example.Employee.Repository.RegisterDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,30 +9,40 @@ import java.util.List;
 
 @Service
 public class EmployeeService {
-
     @Autowired
-    EmployeeRepo empRepo;
+    RegisterDetailsRepository registerDetailsRepository;
 
-    public List<Employee> getEmployee(){
-        return empRepo.findAll();
+
+    public List<RegisterDetails> getMethod() {
+        return registerDetailsRepository.findAll();
     }
 
-    public Employee getEmployeeById (int empID){
-        return empRepo.findById(empID).orElse(new Employee());
+    public RegisterDetails getEmployeeById(int empId) {
+        return registerDetailsRepository.findById(empId).orElse(new RegisterDetails());
     }
 
-    public String addEmployee (Employee employee){
-        empRepo.save(employee);
-        return "Employee Added Successfully!";
+//    public List<RegisterDetails> getEmployeeByJob() {
+//        return registerDetailsRepository.findByRole();
+//    }
+
+    public String addEmployee(RegisterDetails employee) {
+        registerDetailsRepository.save(employee);
+        return "Employee Added Successfully";
     }
 
-    public String updateEmployee (Employee employee){
-        empRepo.save(employee);
-        return "Employee Updated Successfully!";
+    public String updateEmployee(int empId) {
+        RegisterDetails user = registerDetailsRepository.findById(empId)
+                .orElseThrow(()->new RuntimeException("No Such User Present"));
+        registerDetailsRepository.save(user);
+        return "Employee Updated Successfully";
     }
 
-    public String deleteEmployeeById (int empID){
-        empRepo.deleteById(empID);
-        return "Employee updated Successfully";
+    public String deleteEmployeeById(int empID) {
+        registerDetailsRepository.deleteById(empID);
+        return "Employee Deleted Successfully";
+    }
+
+    public List<RegisterDetails> getEmployeeByJob(String job) {
+        return List.of();
     }
 }
