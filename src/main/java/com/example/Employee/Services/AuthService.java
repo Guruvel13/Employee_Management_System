@@ -59,16 +59,13 @@ public class AuthService {
         return "Employee Added Successfully";
     }
 
-    public String authenticate(RegisterDetails login) {
-        Authentication authentication =
-                authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(login.getUserName(),login.getPassword()));
-        return jwtTokenProvider.generateToken(authentication);
-    }
 
     public Optional<RegisterDetails> getUserByUsername(String username){
         return registerRepo.findByUserName(username);
     }
 
 
+    public String addUserDetails(UserDetailsDto userDetails) {
+        return " ";
+    }
 }

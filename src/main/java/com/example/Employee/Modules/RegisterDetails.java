@@ -4,22 +4,23 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.example.springbootfirst.models.Employee;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
-
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "user_details")
+@Table(name = "User_details")
 public class RegisterDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int empId;
 
-    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false, unique = true)
@@ -29,15 +30,17 @@ public class RegisterDetails {
     private String password;
 
     @Column(name = "user_name", nullable = false, unique = true)
-    private String userName;
+    private String username;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "empId"),
+    @JoinTable(name = "user_roles", joinColumns =
+    @JoinColumn(name = "user_id", referencedColumnName = "empId"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "roleId")
     )
     private Set<Roles> roles;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Employee> tasks = new ArrayList<>();
 
     public int getEmpId() {
         return empId;
@@ -63,20 +66,20 @@ public class RegisterDetails {
         this.email = email;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public Set<Roles> getRoles() {
@@ -86,5 +89,12 @@ public class RegisterDetails {
     public void setRoles(Set<Roles> roles) {
         this.roles = roles;
     }
-}
 
+    public List<Employee> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Employee> tasks) {
+        this.tasks = tasks;
+    }
+}
