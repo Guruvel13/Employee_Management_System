@@ -4,25 +4,27 @@ import com.example.Employee.Modules.RegisterDetails;
 import com.example.Employee.Modules.UserDetailsDto;
 import com.example.Employee.Services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
     @Autowired
-    private AuthService authService;
+    AuthService authService;
 
-    @PostMapping
-    public ResponseEntity<String> addUserDetails(@RequestBody UserDetailsDto userDetails) {
-        String message = authService.addUserDetails(userDetails);
-        return ResponseEntity.ok(message);
+    @PostMapping("/register")
+    public String addNewUser(@RequestBody UserDetailsDto register){
+        return authService.addNewEmployee(register);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody RegisterDetails userDetails) {
-        String message = authService.authenticate(userDetails);
-        return ResponseEntity.ok(message);
+    public String Login(@RequestBody RegisterDetails login){
+        return authService.authenticate(login);
     }
+
 }
+
